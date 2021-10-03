@@ -1,0 +1,10 @@
+{
+  "dependencies": {
+    "fastify": "^3.22.0",
+    "json-rules-engine": "^6.1.2"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.13",
+    "standard": "^16.0.3"
+  }
+}
