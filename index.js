@@ -1,6 +1,6 @@
 const fastify = require('fastify')
 const app = fastify()
-const {Engine} = require('json-rules-engine')
+const { Engine } = require('json-rules-engine')
 const engine = new Engine()
 
 // define a rule for detecting the player has exceeded foul limits.  Foul out any player who:
@@ -29,7 +29,7 @@ engine.addRule({
       }]
     }]
   },
-  event: {  // define the event to fire when the conditions evaluate truthy
+  event: { // define the event to fire when the conditions evaluate truthy
     type: 'fouledOut',
     params: {
       message: 'Player has fouled out!'
@@ -41,7 +41,7 @@ engine.addRule({
  * Define facts the engine will use to evaluate the conditions above.
  * Facts may also be loaded asynchronously at runtime; see the advanced example below
  */
-let facts = {
+const facts = {
   personalFoulCount: 6,
   gameDuration: 40
 }
