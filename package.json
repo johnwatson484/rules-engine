@@ -1,6 +1,5 @@
 {
   "dependencies": {
-    "fastify": "^3.22.0",
     "json-rules-engine": "^6.1.2"
   },
   "devDependencies": {

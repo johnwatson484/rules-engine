@@ -1,5 +1,3 @@
-const fastify = require('fastify')
-const app = fastify()
 const { Engine } = require('json-rules-engine')
 const engine = new Engine()
 
@@ -52,5 +50,3 @@ engine
   .then(({ events }) => {
     events.map(event => console.log(event.params.message))
   })
-
-app.listen(3000)
