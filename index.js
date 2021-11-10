@@ -1,20 +1,17 @@
 (async function () {
-  const { Engine } = require('json-rules-engine')
-  const { getRule } = require('./rules')
-  const engine = new Engine()
+  const { getRules } = require('./rules')
 
   const message = {
     rule: 'sfi-eligibility'
   }
 
-  const rule = getRule(message.rule)
-
-  engine.addRule(rule)
-
   const facts = {
-    bpsEntitlements: 6,
-    bpsEligibleHectares: 5
+    sbi: 123456789,
+    organisationId: 1234567,
+    callerId: 1234567
   }
 
-  await engine.run(facts)
+  const rules = getRules(message.rule, facts)
+
+  await rules.run(facts)
 }())
