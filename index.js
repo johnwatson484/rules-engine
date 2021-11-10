@@ -1,17 +1,11 @@
 (async function () {
   const { runRules } = require('./rules')
+  const { getOrganisations } = require('./organisations')
 
   const ruleSetName = 'sfi-eligibility'
+  const crn = 1234567890
 
-  const organisations = [{
-    sbi: 123456789,
-    organisationId: 1234567,
-    callerId: 1234567
-  }, {
-    sbi: 123456781,
-    organisationId: 1234561,
-    callerId: 1234561
-  }]
+  const organisations = getOrganisations(crn)
 
   for (const organisation of organisations) {
     await runRules(ruleSetName, organisation)

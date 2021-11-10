@@ -4,11 +4,11 @@ const { getBpsEntitlements, getBpsEligibleLandInHectares } = require('../bps')
 async function runRules (facts) {
   const engine = new Engine()
 
-  engine.addFact('bpsEntitlements', async (params, almanac) => {
+  engine.addFact('bpsEntitlements', (params, almanac) => {
     return getBpsEntitlements(facts.sbi)
   })
 
-  engine.addFact('bpsEligibleHectares', async (params, almanac) => {
+  engine.addFact('bpsEligibleHectares', (params, almanac) => {
     return getBpsEligibleLandInHectares(facts.sbi)
   })
 
@@ -28,7 +28,7 @@ async function runRules (facts) {
     event: {
       type: 'Eligible for SFI'
     },
-    onSuccess: async function (event, almanac) {
+    onSuccess: function (event, almanac) {
       almanac.addRuntimeFact('sfiEligible', true)
       console.log('Pass')
     },
