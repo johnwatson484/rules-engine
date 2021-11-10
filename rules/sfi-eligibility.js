@@ -1,15 +1,24 @@
 const { Engine } = require('json-rules-engine')
 const { getBpsEntitlements, getBpsEligibleLandInHectares } = require('../bps')
+const { getOrganisations } = require('../organisations')
 
 async function runRules (facts) {
+  const organisations = getOrganisations(facts.crn)
+
+  for (const organisation of organisations) {
+    await runRule(organisation)
+  }
+}
+
+async function runRule (organisation) {
   const engine = new Engine()
 
   engine.addFact('bpsEntitlements', (params, almanac) => {
-    return getBpsEntitlements(facts.sbi)
+    return getBpsEntitlements(organisation.sbi)
   })
 
   engine.addFact('bpsEligibleHectares', (params, almanac) => {
-    return getBpsEligibleLandInHectares(facts.sbi)
+    return getBpsEligibleLandInHectares(organisation.sbi)
   })
 
   engine.addRule({
@@ -38,7 +47,7 @@ async function runRules (facts) {
     }
   })
 
-  return engine.run(facts)
+  return engine.run(organisation)
 }
 
 module.exports = runRules
