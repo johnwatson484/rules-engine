@@ -1,7 +1,7 @@
 const { Engine } = require('json-rules-engine')
 const { getBpsEntitlements, getBpsEligibleLandInHectares } = require('../bps')
 
-function getRules (facts) {
+async function runRules (facts) {
   const engine = new Engine()
 
   engine.addFact('bpsEntitlements', async (params, almanac) => {
@@ -13,6 +13,7 @@ function getRules (facts) {
   })
 
   engine.addRule({
+    name: 'SFI Eligibility',
     conditions: {
       all: [{
         fact: 'bpsEntitlements',
@@ -37,7 +38,7 @@ function getRules (facts) {
     }
   })
 
-  return engine
+  return engine.run(facts)
 }
 
-module.exports = getRules
+module.exports = runRules

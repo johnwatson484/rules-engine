@@ -1,5 +1,5 @@
 async function getBpsEntitlements (sbi) {
-  return 4
+  return sbi === 123456789 ? 5 : 4
 }
 
 async function getBpsEligibleLandInHectares (sbi) {
