@@ -1,8 +1,12 @@
 (async function () {
-  const { runRules } = require('./rules')
-  const ruleSetName = 'sfi-eligibility'
-  const facts = {
-    crn: 1234567890
+  const processEligibilityMessage = require('./messaging/process-eligibility-message')
+
+  const message = {
+    scheme: 'sfi',
+    crn: 1234567890,
+    callerId: 1234567
   }
-  await runRules(ruleSetName, facts)
+
+  const result = await processEligibilityMessage(message)
+  console.log(result)
 }())

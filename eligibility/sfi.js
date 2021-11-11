@@ -2,11 +2,11 @@ const { Engine } = require('json-rules-engine')
 const { getBpsEntitlements, getBpsEligibleLandInHectares } = require('../bps')
 const { getOrganisations } = require('../organisations')
 
-async function runRules (facts) {
+async function runSFIEligibility (facts) {
   const organisations = getOrganisations(facts.crn)
 
   for (const organisation of organisations) {
-    await runRule(organisation)
+    runRule(organisation)
   }
 }
 
@@ -50,4 +50,4 @@ async function runRule (organisation) {
   return engine.run(organisation)
 }
 
-module.exports = runRules
+module.exports = runSFIEligibility
