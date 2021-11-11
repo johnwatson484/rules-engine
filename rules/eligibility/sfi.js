@@ -1,6 +1,6 @@
 const { Engine } = require('json-rules-engine')
-const { getBpsEntitlements, getBpsEligibleLandInHectares } = require('../bps')
-const { getOrganisations } = require('../organisations')
+const { getBpsEntitlements, getBpsEligibleLandInHectares } = require('../../data/bps')
+const { getOrganisations } = require('../../data/organisations')
 
 async function runSFIEligibility (facts) {
   const organisations = getOrganisations(facts.crn)

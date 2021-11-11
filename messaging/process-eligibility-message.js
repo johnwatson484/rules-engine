@@ -1,4 +1,4 @@
-const { runEligibilityRules } = require('../eligibility')
+const { runEligibilityRules } = require('../rules/eligibility')
 
 function processEligibilityMessage (message) {
   return runEligibilityRules(message)
