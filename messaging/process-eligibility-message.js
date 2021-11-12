@@ -1,7 +1,7 @@
-const { runEligibilityRules } = require('../rules/eligibility')
+const { getEligibleOrganisations } = require('../eligibility')
 
 function processEligibilityMessage (message) {
-  return runEligibilityRules(message)
+  return getEligibleOrganisations(message)
 }
 
 module.exports = processEligibilityMessage
