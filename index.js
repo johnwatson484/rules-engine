@@ -3,8 +3,7 @@
 
   const message = {
     scheme: 'sfi',
-    crn: 1234567890,
-    callerId: 1234567
+    crn: 1234567890
   }
 
   const result = await processEligibilityMessage(message)

@@ -2,15 +2,14 @@ const { Engine } = require('json-rules-engine')
 const { getBpsEntitlements, getBpsEligibleLandInHectares } = require('../../data/bps')
 const { getOrganisations } = require('../../data/organisations')
 
-async function runSFIEligibility (facts) {
-  const organisations = getOrganisations(facts.crn)
-
+async function runSFIEligibilityRules (facts) {
+  const organisations = getOrganisations(facts.crn, ['Amend'])
   for (const organisation of organisations) {
-    runRule(organisation)
+    runRules(organisation)
   }
 }
 
-async function runRule (organisation) {
+async function runRules (organisation) {
   const engine = new Engine()
 
   engine.addFact('bpsEntitlements', (params, almanac) => {
@@ -22,13 +21,15 @@ async function runRule (organisation) {
   })
 
   engine.addRule({
-    name: 'SFI Eligibility',
+    name: 'SFI eligible organisations',
     conditions: {
       all: [{
+        name: 'BPS Entitlements',
         fact: 'bpsEntitlements',
         operator: 'greaterThanInclusive',
         value: 5
       }, {
+        name: 'BPS Eligible Hectares',
         fact: 'bpsEligibleHectares',
         operator: 'greaterThanInclusive',
         value: 5
@@ -37,17 +38,19 @@ async function runRule (organisation) {
     event: {
       type: 'Eligible for SFI'
     },
-    onSuccess: function (event, almanac) {
+    onSuccess: async function (event, almanac) {
       almanac.addRuntimeFact('sfiEligible', true)
-      console.log('Pass')
+      const sbi = await almanac.factValue('sbi')
+      console.log(`SBI ${sbi} is eligible for SFI`)
     },
-    onFailure: function (event, almanac) {
+    onFailure: async function (event, almanac) {
       almanac.addRuntimeFact('sfiEligible', false)
-      console.log('Fail')
+      const sbi = await almanac.factValue('sbi')
+      console.log(`SBI ${sbi} is not eligible for SFI`)
     }
   })
 
   return engine.run(organisation)
 }
 
-module.exports = runSFIEligibility
+module.exports = runSFIEligibilityRules

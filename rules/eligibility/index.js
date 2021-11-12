@@ -1,8 +1,8 @@
-const runSFIEligibility = require('./sfi')
+const runSFIEligibilityRules = require('./sfi')
 
-function runEligibilityRules (facts) {
+async function runEligibilityRules (facts) {
   if (facts.scheme === 'sfi') {
-    return runSFIEligibility(facts)
+    return runSFIEligibilityRules(facts)
   }
   throw new Error(`Unknown scheme: ${facts.scheme}`)
 }
