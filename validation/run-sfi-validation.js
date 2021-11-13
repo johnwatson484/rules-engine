@@ -1,4 +1,4 @@
-const runSFIValidationRules = require('./sfi')
+const runSFIValidationRules = require('../rule-sets/sfi-validation')
 
 async function runSFIValidation (facts) {
   const warnings = []

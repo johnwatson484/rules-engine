@@ -20,13 +20,13 @@ async function runSFIEligibilityRules (organisation) {
   engine.on('success', async (event, almanac, ruleResult) => {
     almanac.addRuntimeFact('sfiEligible', true)
     const sbi = await almanac.factValue('sbi')
-    render(`SBI ${sbi} passed SFI eligibility rule: ${event.params.message}`, ruleResult)
+    render(`SBI ${sbi} passed SFI rule: ${event.params.message}`, ruleResult)
   })
 
   engine.on('failure', async (event, almanac, ruleResult) => {
     almanac.addRuntimeFact('sfiEligible', false)
     const sbi = await almanac.factValue('sbi')
-    render(`SBI ${sbi} failed SFI eligibility rule: ${ruleResult.name} - `, ruleResult)
+    render(`SBI ${sbi} failed SFI rule: ${ruleResult.name} - `, ruleResult)
   })
 
   return engine.run(organisation)

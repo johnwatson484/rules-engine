@@ -1,5 +1,5 @@
 const { getOrganisations } = require('../data/organisations')
-const runSFIEligibilityRules = require('./sfi')
+const runSFIEligibilityRules = require('../rule-sets/sfi-eligibility')
 
 async function getSFIEligibleOrganisations (facts) {
   const eligibleOrganisations = []
